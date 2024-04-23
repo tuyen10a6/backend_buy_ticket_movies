@@ -14,7 +14,7 @@ class LichChieuController extends Controller
 {
     public function getLichChieu()
     {
-        $data = LichChieu::all();
+        $data = LichChieu::query()->with(['phim', 'rap'])->get();
 
         return response()->json([
             'status' => true,
@@ -44,7 +44,7 @@ class LichChieuController extends Controller
             return response()->json([
                 'status' => false,
                 'data' => $data,
-                'message' => $e.getMessage()
+                'message' => $e . getMessage()
             ], 404);
         }
     }
@@ -93,5 +93,12 @@ class LichChieuController extends Controller
                 'message' => 'Dữ liệu trên đã được xoá'
             ], 200);
         }
+    }
+
+    public function getPhimByLichChieu($id)
+    {
+        $data = LichChieu::query()->with('rap')->where('phim_id', $id)->get();
+
+        return $data;
     }
 }

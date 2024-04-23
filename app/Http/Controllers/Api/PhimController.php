@@ -32,7 +32,7 @@ class PhimController extends Controller
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time().'.'.$image->getClientOriginalExtension();
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('images/phim'), $imageName);
                 $data['image'] = '/images/phim/' . $imageName;
             }
@@ -119,5 +119,15 @@ class PhimController extends Controller
             'status' => true,
             'data' => $data
         ]);
+    }
+
+    public function getPhimById($id)
+    {
+        $data = Phim::query()->with('danhMuc')->where('id', $id)->first();
+
+        return response()->json([
+            'status' => true,
+            'data' => $data
+        ], 200);
     }
 }

@@ -10,7 +10,7 @@ class DanhMucController extends Controller
 {
     public function getDanhMuc()
     {
-        $data = DanhMuc::all();
+        $data = DanhMuc::query()->with('phim')->get();
 
         return response()->json([
             'status' => true,

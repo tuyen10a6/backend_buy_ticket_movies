@@ -25,10 +25,13 @@ Route::get('/', function () {
 Route::get('/danhmuc', [\App\Http\Controllers\Api\DanhMucController::class, 'getDanhMuc']);
 Route::get('/rap_phim', [\App\Http\Controllers\Api\RapPhimController::class, 'getRapPhim']);
 Route::get('/phim', [\App\Http\Controllers\Api\PhimController::class, 'getPhim']);
+Route::get('phim/{id}', [\App\Http\Controllers\Api\PhimController::class, 'getPhimById']);
 Route::get('/search_phim', [\App\Http\Controllers\Api\PhimController::class, 'searchPhim']);
 Route::get('/getPhimByDanhMuc/{id}', [\App\Http\Controllers\Api\PhimController::class, 'getPhimByDanhMuc']);
+Route::get('/phimByLichChieu/{id}', [\App\Http\Controllers\Api\LichChieuController::class, 'getPhimByLichChieu']);
 Route::get('/getLichChieu', [\App\Http\Controllers\Api\LichChieuController::class, 'getLichChieu']);
 Route::get('/getDatVe', [\App\Http\Controllers\Api\DatVeController::class, 'getDatVe']);
+Route::post('addDatVe', [\App\Http\Controllers\Api\DatVeController::class, 'addDatVe']);
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'login'])->middleware(['cors']);;
     Route::post('logout', [AuthController::class, 'logout'])->middleware(['cors']);;
@@ -53,7 +56,7 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::post('updateLichChieu/{id}', [\App\Http\Controllers\Api\LichChieuController::class, 'updateLichChieu']);
     Route::delete('deleteLichChieu/{id}', [\App\Http\Controllers\Api\LichChieuController::class, 'deleteLichChieu']);
     // Đặt vé
-    Route::post('addDatVe', [\App\Http\Controllers\Api\DatVeController::class, 'addDatVe']);
+
     Route::post('updateDatVe/{id}', [\App\Http\Controllers\Api\DatVeController::class, 'updateDatVe']);
     Route::delete('deleteDatVe/{id}', [\App\Http\Controllers\Api\DatVeController::class, 'deleteDatVe']);
 });
